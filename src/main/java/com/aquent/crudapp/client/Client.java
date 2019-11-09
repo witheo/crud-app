@@ -12,15 +12,15 @@ public class Client {
 
     @NotNull
     @Size(min = 1, max = 50, message = "First name is required with maximum length of 50")
-    private String firstName;
+    private String companyName;
 
     @NotNull
     @Size(min = 1, max = 50, message = "Last name is required with maximum length of 50")
-    private String lastName;
+    private String websiteURI;
 
     @NotNull
     @Size(min = 1, max = 50, message = "Email address is required with maximum length of 50")
-    private String emailAddress;
+    private String phoneNumber;
 
     @NotNull
     @Size(min = 1, max = 50, message = "Street address is required with maximum length of 50")
@@ -46,28 +46,28 @@ public class Client {
         this.clientId = personId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setCompanyName(String firstName) {
+        this.companyName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getWebsiteURI() {
+        return websiteURI;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setWebsiteURI(String lastName) {
+        this.websiteURI = lastName;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getStreetAddress() {

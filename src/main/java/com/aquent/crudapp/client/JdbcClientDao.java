@@ -20,14 +20,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class JdbcClientDao implements ClientsDao {
 
-    private static final String SQL_LIST_CLIENTS = "SELECT * FROM client ORDER BY first_name, last_name, client_id";
+    private static final String SQL_LIST_CLIENTS = "SELECT * FROM client ORDER BY company_name, website_uri, client_id";
     private static final String SQL_READ_CLIENT = "SELECT * FROM client WHERE client_id = :clientId";
     private static final String SQL_DELETE_CLIENT = "DELETE FROM client WHERE client_id = :clientId";
-    private static final String SQL_UPDATE_CLIENT = "UPDATE person SET (first_name, last_name, email_address, street_address, city, state, zip_code)"
-                                                  + " = (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode)"
+    private static final String SQL_UPDATE_CLIENT = "UPDATE person SET (company_name, website_uri, phone_number, street_address, city, state, zip_code)"
+                                                  + " = (:companyName, :websiteURI, :phoneNumber, :streetAddress, :city, :state, :zipCode)"
                                                   + " WHERE client_id = :clientId";
-    private static final String SQL_CREATE_CLIENT = "INSERT INTO client (first_name, last_name, email_address, street_address, city, state, zip_code)"
-                                                  + " VALUES (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode)";
+    private static final String SQL_CREATE_CLIENT = "INSERT INTO client (company_name, website_uri, phone_number, street_address, city, state, zip_code)"
+                                                  + " VALUES (:company_name, :website_uri, :phoneNumber, :streetAddress, :city, :state, :zipCode)";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -76,9 +76,9 @@ public class JdbcClientDao implements ClientsDao {
         public Client mapRow(ResultSet rs, int rowNum) throws SQLException {
             Client client = new Client();
             client.setClientId(rs.getInt("client_id"));
-            client.setFirstName(rs.getString("first_name"));
-            client.setLastName(rs.getString("last_name"));
-            client.setEmailAddress(rs.getString("email_address"));
+            client.setCompanyName(rs.getString("company_name"));
+            client.setWebsiteURI(rs.getString("website_uri"));
+            client.setPhoneNumber(rs.getString("phone_number"));
             client.setStreetAddress(rs.getString("street_address"));
             client.setCity(rs.getString("city"));
             client.setState(rs.getString("state"));
