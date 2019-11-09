@@ -23,3 +23,28 @@ INSERT INTO person (
     'NC',
     '28801'
 );
+INSERT INTO client (
+    first_name,
+    last_name,
+    email_address,
+    street_address,
+    city,
+    state,
+    zip_code
+) VALUES (
+    'John',
+    'Smith',
+    'client1@aquent.com',
+    '123 Any St.',
+    'Asheville',
+    'NC',
+    '28801'
+), (
+    'Jane',
+    'Smith',
+    'client2@aquent.com',
+    '123 Any St.',
+    'Asheville',
+    'NC',
+    '28801'
+);
