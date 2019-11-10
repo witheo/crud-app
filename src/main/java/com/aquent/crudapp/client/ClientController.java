@@ -34,7 +34,7 @@ public class ClientController {
     @GetMapping(value = "list")
     public ModelAndView list() {
         ModelAndView mav = new ModelAndView("client/list");
-        mav.addObject("clients", clientService.listClient());
+        mav.addObject("clients", clientService.listClients());
         return mav;
     }
 

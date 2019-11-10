@@ -32,7 +32,7 @@ INSERT INTO person (
     city,
     state,
     zip_code,
-    client
+    client_id
 ) VALUES (
     'John',
     'Smith',
@@ -50,5 +50,14 @@ INSERT INTO person (
     'Asheville',
     'NC',
     '28801',
-    SELECT client_id FROM client where rownum=2
+    SELECT client_id FROM client where company_name = 'tiny corp' and rownum=1
+), (
+    'jim',
+    'Smith',
+    'fake2@aquent.com',
+    '123 Any St.',
+    'Asheville',
+    'NC',
+    '28801',
+    null
 );

@@ -17,6 +17,6 @@ CREATE TABLE person (
     city varchar(50) NOT NULL,
     state varchar(2) NOT NULL,
     zip_code varchar(5) NOT NULL,
-    client NULL,
-    FOREIGN KEY (client) REFERENCES client(client_id)
+    client_id int,
+    FOREIGN KEY (client_id) REFERENCES client(client_id)
 );

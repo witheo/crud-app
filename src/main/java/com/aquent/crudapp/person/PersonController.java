@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aquent.crudapp.client.ClientService;
+
 /**
  * Controller for handling basic person management operations.
  */
@@ -21,9 +23,11 @@ public class PersonController {
     public static final String COMMAND_DELETE = "Delete";
 
     private final PersonService personService;
+    private final ClientService clientService;
 
-    public PersonController(PersonService personService) {
+    public PersonController(PersonService personService, ClientService clientService) {
         this.personService = personService;
+        this.clientService = clientService;
     }
 
     /**
@@ -83,6 +87,7 @@ public class PersonController {
     public ModelAndView edit(@PathVariable Integer personId) {
         ModelAndView mav = new ModelAndView("person/edit");
         mav.addObject("person", personService.readPerson(personId));
+        mav.addObject("clients", clientService.listClients());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
     }

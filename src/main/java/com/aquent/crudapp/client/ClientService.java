@@ -15,7 +15,7 @@ public interface ClientService {
      *
      * @return list of client records
      */
-    List<Client> listClient();
+    List<Client> listClients();
 
     /**
      * Creates a new client record.
