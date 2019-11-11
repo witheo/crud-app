@@ -4,11 +4,15 @@
       xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link th:replace="fragments/header :: header">
     <title>Person Listing</title>
   </head>
   <body>
     <h1>Person Listing</h1>
-    <p><a href="/person/create">Create New Person</a></p>
+    <p>
+      <a href="/client/list">Client Listing</a>
+      <a href="/person/create">Create New Person</a>
+    </p>
     <th:block th:unless="${#lists.isEmpty(persons)}">
       <table>
         <thead>

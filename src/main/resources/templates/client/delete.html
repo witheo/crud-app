@@ -4,11 +4,12 @@
       xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Delete Person</title>
+    <link th:replace="fragments/header :: header">
+    <title>Delete Client</title>
   </head>
   <body>
-    <h1>Delete Person</h1>
-    <p>You are about to delete the client <th:block th:text="${client.firstName}" /> <th:block th:text="${client.lastName}" />:  Are you sure?</p>
+    <h1>Delete Client</h1>
+    <p>You are about to delete the client <th:block th:text="${client.companyName}" /> <th:block th:text="${client.websiteURI}" />:  Are you sure?</p>
     <form action="/client/delete" method="post">
       <input type="hidden" name="clientId" th:value="${client.clientId}"/>
       <input type="submit" name="command" value="Cancel"/>

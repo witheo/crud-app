@@ -1,0 +1,76 @@
+body {
+	padding: 20px;
+}
+
+h1 {
+	background: #d6ebad;
+	padding: 5px;
+	text-align: center;
+}
+
+tbody tr:nth-child(even) {
+	background: #e6f2ff;
+}
+
+tbody tr:nth-child(odd) {
+	background: #eee6ff;
+}
+
+thead {
+	background: #d6ebad;
+}
+
+h2 {
+	background: #e6f2ff;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: center;
+}
+
+@media screen and ( max-width : 992px) {
+	h2 {
+		width: fit-content;
+	}
+}
+
+div {
+	display: inline-block;
+}
+
+.row {
+	width: 100%
+}
+
+table {
+	width: 100%;
+}
+
+td, th {
+	padding: 5px;
+}
+
+input, label {
+	display: block;
+}
+
+a:link, a:visited, input[type=submit] {
+	background-color: #d6ebad;
+	color: black;
+	padding: 10px;
+	margin: 2px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	border: none;
+}
+
+a:hover, a:active, input[type=submit]:hover {
+	background-color: #c2e184;
+}
+
+input[disabled], input[disabled]:hover {
+	background-color: #d9d9d9;
+}
+.error {
+	color: red;
+}

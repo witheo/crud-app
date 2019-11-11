@@ -23,11 +23,15 @@ public class JdbcClientDao implements ClientsDao {
     private static final String SQL_LIST_CLIENTS = "SELECT * FROM client ORDER BY company_name, website_uri, client_id";
     private static final String SQL_READ_CLIENT = "SELECT * FROM client WHERE client_id = :clientId";
     private static final String SQL_DELETE_CLIENT = "DELETE FROM client WHERE client_id = :clientId";
-    private static final String SQL_UPDATE_CLIENT = "UPDATE person SET (company_name, website_uri, phone_number, street_address, city, state, zip_code)"
-                                                  + " = (:companyName, :websiteURI, :phoneNumber, :streetAddress, :city, :state, :zipCode)"
+    private static final String SQL_UPDATE_CLIENT = "UPDATE client SET (company_name, website_uri, phone_number, street_address, city, state, zip_code, "
+    											  + "mailing_street_address, mailing_city, mailing_state, mailing_zip_code)"
+                                                  + " = (:companyName, :websiteURI, :phoneNumber, :streetAddress, :city, :state, :zipCode, "
+                                                  + ":mailingStreetAddress, :mailingCity, :mailingState, :mailingZipCode)"
                                                   + " WHERE client_id = :clientId";
-    private static final String SQL_CREATE_CLIENT = "INSERT INTO client (company_name, website_uri, phone_number, street_address, city, state, zip_code)"
-                                                  + " VALUES (:company_name, :website_uri, :phoneNumber, :streetAddress, :city, :state, :zipCode)";
+    private static final String SQL_CREATE_CLIENT = "INSERT INTO client (company_name, website_uri, phone_number, street_address, city, state, zip_code, "
+    		 									  + "mailing_street_address, mailing_city, mailing_state, mailing_zip_code)"
+                                                  + " VALUES (:companyName, :websiteURI, :phoneNumber, :streetAddress, :city, :state, :zipCode, "
+                                                  + ":mailingStreetAddress, :mailingCity, :mailingState, :mailingZipCode)";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -83,6 +87,10 @@ public class JdbcClientDao implements ClientsDao {
             client.setCity(rs.getString("city"));
             client.setState(rs.getString("state"));
             client.setZipCode(rs.getString("zip_code"));
+            client.setMailingStreetAddress(rs.getString("mailing_street_address"));
+            client.setMailingCity(rs.getString("mailing_city"));
+            client.setMailingState(rs.getString("mailing_state"));
+            client.setMailingZipCode(rs.getString("mailing_zip_code"));
             return client;
         }
     }

@@ -6,7 +6,11 @@ CREATE TABLE client (
     street_address varchar(50) NOT NULL,
     city varchar(50) NOT NULL,
     state varchar(2) NOT NULL,
-    zip_code varchar(5) NOT NULL
+    zip_code varchar(5) NOT NULL,
+    mailing_street_address varchar(50) NOT NULL,
+    mailing_city varchar(50) NOT NULL,
+    mailing_state varchar(2) NOT NULL,
+    mailing_zip_code varchar(5) NOT NULL
 );
 CREATE TABLE person (
     person_id integer IDENTITY,

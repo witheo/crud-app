@@ -4,11 +4,13 @@
       xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link th:replace="fragments/header :: header">
+    <link rel="stylesheet" href="/static/css/main.css" th:href="@{/static/css/main.css}" type="text/css" />
     <title>Client Listing</title>
   </head>
   <body>
     <h1>Client Listing</h1>
-    <p><a href="/client/create">Create New Client</a></p>
+    <p><a href="/person/list">Person Listing</a><a href="/client/create">Create New Client</a></p>
     <th:block th:unless="${#lists.isEmpty(clients)}">
       <table>
         <thead>
@@ -16,6 +18,7 @@
             <th>Company Name</th>
             <th>Website</th>
             <th>Phone Number</th>
+            <th>Contacts</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -25,6 +28,11 @@
               <td th:text="${client.companyName}">Name</td>
               <td th:text="${client.websiteURI}">Website</td>
               <td th:text="${client.phoneNumber}">Phone</td>
+              <td>
+              <th:block th:each="person : ${persons}">
+              <li th:if="${person.clientId} == ${client.clientId}" th:text="${person.firstName} +' '+ ${person.lastName}">Phone</li>
+              </th:block>
+              </td>
               <td>
                 <a th:href="'/client/edit/' + ${client.clientId}">Edit Client</a>
                 <a th:href="'/client/delete/' + ${client.clientId}">Delete Client</a>

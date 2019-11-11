@@ -4,43 +4,103 @@
       xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Edit Person</title>
+    <link th:replace="fragments/header :: header">
+    <title>Edit Client</title>
   </head>
   <body>
-    <h1>Edit Person</h1>
+    <h1>Edit Client</h1>
     <th:block th:unless="${#lists.isEmpty(errors)}">
       <p>Please correct the following errors in your submission:</p>
       <ul>
         <th:block th:each="error : ${errors}">
-          <li>${error}</li>
+          <li class="error" th:text="${error}">error</li>
         </th:block>
       </ul>
     </th:block>
-    <form action="/client/edit" method="POST">
-      <input type="hidden" name="clientId" th:value="${client.clientId}"/>
+    <form name="form" action="/client/edit" onsubmit="return validateForm()" method="POST">
+	<div class="container">
+	  <div class="row">
+		 <div class=" col-xs-12 col-sm-12 col-md-4 col-lg-4">
+		    <h2>Client Info</h2>
+		    <input type="hidden" name="clientId" th:value="${client.clientId}"/>
+		    <br/>
+		    <label for="companyName">Company Name:</label>
+		    <input type="text" name="companyName" th:value="${client.companyName}" maxlength="50"/>
+		    <br/>
+		    <label for="websiteURI">Website URL:</label>
+		    <input type="text" name="websiteURI" th:value="${client.websiteURI}" maxlength="50"/>
+		    <br/>
+		    <label for="emailAddress">Phone Number:</label>
+		    <input type="text" name="phoneNumber" th:value="${client.phoneNumber}" maxlength="15"/>
+            <br/>
+          </div>  
+          <div class=" col-md-4 col-lg-4">
+            <h2>Physical Address</h2>
+            <label for="streetAddress">Street Address:</label>
+            <input type="text" name="streetAddress" th:value="${client.streetAddress}" maxlength="50"/>
+            <br/>
+            <label for="city">City:</label>
+            <input type="text" name="city" th:value="${client.city}" maxlength="50"/>
+            <br/>
+            <label for="state">State:</label>
+            <input type="text" name="state" th:value="${client.state}" maxlength="2"/>
+            <br/>
+           <label for="zipCode">Zip Code:</label>
+           <input type="text" name="zipCode" th:value="${client.zipCode}" maxlength="5"/>
+         </div>
+         <div class="col-md-4 col-lg-4">
+           <h2>Mailing  Address</h2>
+           <label for="mailingStreetAddress">Street Address:</label>
+           <input type="text" name="mailingStreetAddress" th:value="${client.mailingStreetAddress}"  maxlength="50"/>
+           <br/>
+           <label for="mailingCity">City:</label>
+           <input type="text" name="mailingCity" th:value="${client.mailingCity}" maxlength="50"/>
+           <br/>
+           <label for="mailingState">State:</label>
+           <input type="text" name="mailingState" th:value="${client.mailingState}" maxlength="2"/>
+           <br/>
+           <label for="mailingZipCode">Zip Code:</label>
+           <input type="text" name="mailingZipCode" th:value="${client.mailingZipCode}" maxlength="5"/>
+          </div>
+  	    </div>
+	  </div>
       <br/>
-      <label for="firstName">First Name:</label>
-      <input type="text" name="companyName" th:value="${client.companyName}"/>
-      <br/>
-      <label for="lastName">Last Name:</label>
-      <input type="text" name="websitURI" th:value="${client.websiteURI}"/>
-      <br/>
-      <label for="emailAddress">Email Address:</label>
-      <input type="text" name="phoneNumber" th:value="${client.phoneNumber}"/>
-      <br/>
-      <label for="streetAddress">Street Address:</label>
-      <input type="text" name="streetAddress" th:value="${client.streetAddress}"/>
-      <br/>
-      <label for="city">City:</label>
-      <input type="text" name="city" th:value="${client.city}"/>
-      <br/>
-      <label for="state">State:</label>
-      <input type="text" name="state" th:value="${client.state}"/>
-      <br/>
-      <label for="zipCode">Zip Code:</label>
-      <input type="text" name="zipCode" th:value="${client.zipCode}"/>
       <br/>
       <input type="submit" name="Submit" value="Submit"/>
     </form>
+    <h1>Contact Listing</h1>
+    <p><a href="/person/create">Create New Person</a></p>
+    <th:block th:unless="${#lists.isEmpty(persons)}">
+      <table>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email Address</th>
+            <th>Client</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <th:block th:each="person : ${persons}">
+            <tr>
+              <td th:text="${person.firstName}">First</td>
+              <td th:text="${person.lastName}">Last</td>
+              <td th:text="${person.emailAddress}">first.last@email.com</td>
+              <td th:text="${person.clientName}">First</td>
+              <td>
+              	<a th:if="${person.clientId} == ${client.clientId}" th:href="'/client/removeContact/' + ${person.personId}">Remove Contact</a>
+              	<a th:if="${person.clientId} != ${client.clientId}" th:href="'/client/addContact/' + ${person.personId} + '/' + ${client.clientId}">Add Contact</a>
+                <a th:href="'/person/edit/' + ${person.personId}">Edit Person</a>
+                <a th:href="'/person/delete/' + ${person.personId}">Delete Person</a>
+              </td>
+            </tr>
+          </th:block>
+        </tbody>
+      </table>
+    </th:block>
+    <th:block th:if="${#lists.isEmpty(persons)}">
+      <p>No results found.</p>
+    </th:block>
   </body>
 </html>

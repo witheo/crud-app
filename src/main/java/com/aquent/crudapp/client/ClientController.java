@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aquent.crudapp.person.Person;
+import com.aquent.crudapp.person.PersonService;
+
 /**
  * Controller for handling basic client management operations.
  */
@@ -19,11 +22,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class ClientController {
 
     public static final String COMMAND_DELETE = "Delete";
+    public static final String COMMAND_REMOVE = "Remove";
 
     private final ClientService clientService;
+    private final PersonService personService;
 
-    public ClientController(ClientService clientService) {
+    public ClientController(ClientService clientService, PersonService personService) {
         this.clientService = clientService;
+        this.personService = personService;
     }
 
     /**
@@ -35,6 +41,7 @@ public class ClientController {
     public ModelAndView list() {
         ModelAndView mav = new ModelAndView("client/list");
         mav.addObject("clients", clientService.listClients());
+        mav.addObject("persons", personService.listPeople());
         return mav;
     }
 
@@ -83,6 +90,7 @@ public class ClientController {
     public ModelAndView edit(@PathVariable Integer clientId) {
         ModelAndView mav = new ModelAndView("client/edit");
         mav.addObject("client", clientService.readClient(clientId));
+        mav.addObject("persons", personService.listPeople());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
     }
@@ -107,6 +115,53 @@ public class ClientController {
             mav.addObject("errors", errors);
             return mav;
         }
+    }
+    
+    /**
+     * Renders the removeContact confirmation page.
+     *
+     * @param personId the ID of the personId to be removed
+     * @return remove view populated from the person record
+     */
+    @GetMapping(value = "removeContact/{personId}")
+    public ModelAndView removeContact(@PathVariable Integer personId) {
+        ModelAndView mav = new ModelAndView("client/removeContact");
+        mav.addObject("person", personService.readPerson(personId));
+        return mav;
+    }
+    
+    /**
+     * Handles client removeContact or cancellation, redirecting to the listing page in either case.
+     *
+     * @param command the command field from the form
+     * @param personId the ID of the person that contains the client to be removed 
+     * @return redirect to the edit page
+     */
+    @PostMapping(value = "removeContact")
+    public String removeContact(@RequestParam String command, @RequestParam Integer personId) {
+    	Integer clientId = 0;
+    	if (COMMAND_REMOVE.equals(command)) {
+            Person person = personService.readPerson(personId);
+            clientId = person.getClientId();
+            person.setClientId(0);
+        	personService.updatePerson(person);
+        }
+        return "redirect:/client/edit/" + clientId;
+    }
+    
+    /**
+     * Renders the removeContact confirmation page.
+     *
+     * @param personId the ID of the person to add the client id to
+     * @param clientId the ID of the client to be added
+     * @return redirect to the client edit page
+     */
+    @GetMapping(value = "addContact/{personId}/{clientId}")
+    public String addContact(@PathVariable Integer personId, @PathVariable Integer clientId) {
+    	Person person = personService.readPerson(personId);
+        person.setClientId(clientId);
+    	personService.updatePerson(person);
+        return "redirect:/client/edit/{clientId}";
     }
 
     /**
