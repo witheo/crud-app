@@ -187,6 +187,13 @@ public class ClientController {
     @PostMapping(value = "delete")
     public String delete(@RequestParam String command, @RequestParam Integer clientId) {
         if (COMMAND_DELETE.equals(command)) {
+        	List<Person> people = personService.listPeople();
+        	for (Person person : people) {
+        		if (person.getClientId() == clientId) {
+        			person.setClientId(0);
+        			personService.updatePerson(person);
+        		}
+        	}
             clientService.deleteClient(clientId);
         }
         return "redirect:/client/list";

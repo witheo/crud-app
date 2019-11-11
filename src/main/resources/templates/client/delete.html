@@ -9,7 +9,7 @@
   </head>
   <body>
     <h1>Delete Client</h1>
-    <p>You are about to delete the client <th:block th:text="${client.companyName}" /> <th:block th:text="${client.websiteURI}" />:  Are you sure?</p>
+    <p>You are about to delete the client and remove all of it's associated contacts <th:block th:text="'Company Name:' + ${client.companyName} " /> <th:block th:text="'Website:' + ${client.websiteURI}" />:  Are you sure?</p>
     <form action="/client/delete" method="post">
       <input type="hidden" name="clientId" th:value="${client.clientId}"/>
       <input type="submit" name="command" value="Cancel"/>
